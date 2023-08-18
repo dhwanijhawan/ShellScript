@@ -1,4 +1,4 @@
-# ShellScript
+# ETL script using shell scripting
 
 Project for practicing shell script in Bash. Creating ETL pipeline using bash.
 
