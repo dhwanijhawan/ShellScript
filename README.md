@@ -24,6 +24,7 @@ Step 2
 theia@theiadocker-dhwaninijhaw:/home/project$ bash csv2db.sh
 
 Extracting data
+```
 root:0:/root
 daemon:1:/usr/sbin
 bin:2:/bin
@@ -49,12 +50,13 @@ mongodb:102:/var/lib/mongodb
 ntp:103:/nonexistent
 cassandra:104:/var/lib/cassandra
 postgres:105:/var/lib/postgresql
-
+```
 Step 3
 Redirect the extracted output into a file.
 
 theia@theiadocker-dhwaninijhaw:/home/project$ cut -d":" -f1,3,6 /etc/passwd > extracted-data.txt
 theia@theiadocker-dhwaninijhaw:/home/project$ bash csv2db.sh
+```
 Extracting data
 root:0:/root
 daemon:1:/usr/sbin
@@ -107,7 +109,7 @@ mongodb:102:/var/lib/mongodb
 ntp:103:/nonexistent
 cassandra:104:/var/lib/cassandra
 postgres:105:/var/lib/postgresql
-
+```
 Step - 4
 Transform the data into CSV format
 
@@ -125,6 +127,7 @@ tr ":" "," < extracted-data.txt
 save and run 
 
 theia@theiadocker-dhwaninijhaw:/home/project$ bash csv2db.sh
+```
 Extracting data
 root:0:/root
 daemon:1:/usr/sbin
@@ -177,7 +180,7 @@ mongodb,102,/var/lib/mongodb
 ntp,103,/nonexistent
 cassandra,104,/var/lib/cassandra
 postgres,105,/var/lib/postgresql
-
+```
 Verified that : is replaced with ,
 
 Replace the tr command at end of the script with the command below.
@@ -188,6 +191,7 @@ Step 5
 Save and run 
 
 theia@theiadocker-dhwaninijhaw:/home/project$ cat transformed-data.csv
+```
 root,0,/root
 daemon,1,/usr/sbin
 bin,2,/bin
@@ -213,7 +217,7 @@ mongodb,102,/var/lib/mongodb
 ntp,103,/nonexistent
 cassandra,104,/var/lib/cassandra
 postgres,105,/var/lib/postgresql
-
+```
 Step -6 
 Load the data into the table ‘users’ in PostgreSQL
 Do this by copying the following code at the end of bash script 
@@ -226,6 +230,7 @@ copy the file to the table 'users' through command pipeline.
 echo "\c template1;\COPY users  FROM '/home/project/transformed-data.csv' DELIMITERS ',' CSV;" | psql --username=postgres --host=localhost
 
 theia@theiadocker-dhwaninijhaw:/home/project$ bash csv2db.sh
+```
 Extracting data
 root:0:/root
 daemon:1:/usr/sbin
@@ -281,7 +286,7 @@ postgres,105,/var/lib/postgresql
 Loading data
 You are now connected to database "template1" as user "postgres".
 COPY 25
-
+```
 save and run bash script
 
 Step 8 
@@ -289,6 +294,7 @@ Step 8
 Run this command to verify
 
 theia@theiadocker-dhwaninijhaw:/home/project$ echo '\c template1; \\SELECT * from users;' | psql --username=postgres --host=localhostYou are now connected to database "template1" as user "postgres".
+```
   username  | userid |    homedirectory    
 ------------+--------+---------------------
  root       |      0 | /root
@@ -317,7 +323,7 @@ theia@theiadocker-dhwaninijhaw:/home/project$ echo '\c template1; \\SELECT * fro
  cassandra  |    104 | /var/lib/cassandra
  postgres   |    105 | /var/lib/postgresql
 (25 rows)
-
+```
 SUCCCESS!!
 
 
