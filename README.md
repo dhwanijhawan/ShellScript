@@ -5,18 +5,18 @@ Project for practicing shell script in Bash. Creating ETL pipeline using bash.
 Step 1
 Extracts data from /etc/passwd file into a CSV file.
 
-# The csv data file contains the user name, user id and 
-# home directory of each user account defined in /etc/passwd
+The csv data file contains the user name, user id and 
+home directory of each user account defined in /etc/passwd
 
-# Transforms the text delimiter from ":" to ",".
-# Loads the data from the CSV file into a table in PostgreSQL database.
+Transforms the text delimiter from ":" to ",".
+Loads the data from the CSV file into a table in PostgreSQL database.
 
-# Extract phase
+Extract phase
 
 echo "Extracting data"
 
-# Extract the columns 1 (user name), 2 (user id) and 
-# 6 (home directory path) from /etc/passwd
+Extract the columns 1 (user name), 2 (user id) and 
+6 (home directory path) from /etc/passwd
 
 cut -d":" -f1,3,6 /etc/passwd 
 
@@ -116,9 +116,9 @@ The extracted columns are separated by the original “:” delimiter.
 We need to convert this into a “,” delimited file.
 
 Add the following lines to the bash script 
-# Transform phase
+Transform phase
 echo "Transforming data"
-# read the extracted data and replace the colons with commas.
+read the extracted data and replace the colons with commas.
 
 tr ":" "," < extracted-data.txt
 
@@ -218,10 +218,10 @@ Step -6
 Load the data into the table ‘users’ in PostgreSQL
 Do this by copying the following code at the end of bash script 
 
-# Load phase
+Load phase
 echo "Loading data"
-# Send the instructions to connect to 'template1' and
-# copy the file to the table 'users' through command pipeline.
+Send the instructions to connect to 'template1' and
+copy the file to the table 'users' through command pipeline.
 
 echo "\c template1;\COPY users  FROM '/home/project/transformed-data.csv' DELIMITERS ',' CSV;" | psql --username=postgres --host=localhost
 
